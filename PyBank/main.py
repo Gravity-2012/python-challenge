@@ -1,7 +1,7 @@
 import os
 import csv
 
-read_csv = "PyBank.csv"
+read_csv = "budget_data.csv"
 
 total = 0
 total_months = 0
@@ -17,14 +17,14 @@ with open(read_csv, newline='') as csvfile:
 
     first_row = next(csvreader)
     previous = int(first_row[1])
-    total = total + int(first_row[1])
+    total += int(first_row[1])
     total_months = total_months + 1
 
     for row in csvreader:
         total_months = total_months + 1
         total = total + int(row[1])
         average_change = int(row[1]) - previous
-        average_change_list = average_change_list + [average_change]
+        average_change_list += [average_change]
         previous = int(row[1])
 
         if average_change > greatest_increase_in_profits[1]:
@@ -45,15 +45,14 @@ print(f"Average Change: ${total_monthly_average}")
 print(f"Greatest Increase in Profits: {greatest_increase_in_profits}")
 print(f"Greatest Decrease in Profits: {greatest_decrease_in_profits}")
 
-output_path = os.path.join("..", "PyBank", "Financial_Analysis_Complete.csv")
+fh = open('Financial_Analysis_Complete', 'w')
 
-with open(output_path, 'w', newline='') as csvfile:
-    csvwriter = csv.writer(csvfile, delimiter=',')
+fh.write("Financial Analysis\n")
+fh.write("----------------------------------\n")
+fh.write(f"Total Months: {total_months}\n")
+fh.write(f"Total:  ${total}\n")
+fh.write(f"Average Change: ${total_monthly_average}\n")
+fh.write(f"Greatest Increase in Profits: {greatest_increase_in_profits}\n")
+fh.write(f"Greatest Decrease in Profits: {greatest_decrease_in_profits}\n")
 
-    csvwriter.writerow(["Financial Analysis"])
-    csvwriter.writerow(['----------------------------'])
-    csvwriter.writerow([f"Total Months: {total_months}"])
-    csvwriter.writerow([f"Total: ${total}"])
-    csvwriter.writerow([f"Average Change: ${total_monthly_average}"])
-    csvwriter.writerow([f"Greatest Increase in Profits: {greatest_increase_in_profits}"])
-    csvwriter.writerow([f"Greatest Decrease in Profits: {greatest_decrease_in_profits}"])
+fh.close()
