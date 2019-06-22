@@ -28,8 +28,8 @@ with open(read_csv, newline='') as csvfile:
         # starts gathering names and check that there aren't any duplicates
         if candidate_name not in candidate_list:
             candidate_list.append(candidate_name)
-
-        candidate_count[candidate_name] += 1
+        else:
+            candidate_count[candidate_name] += 1
 
     candidate_dictionary = dict(candidate_count.most_common())
 
