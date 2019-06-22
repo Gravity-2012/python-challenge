@@ -4,7 +4,7 @@ import csv
 read_csv = "budget_data.csv"
 
 total = 0
-total_months = 0
+total_months = 1
 average_change_list = []
 greatest_increase_in_profits = ["", 0]
 greatest_decrease_in_profits = ["", 9999999999]
@@ -18,7 +18,6 @@ with open(read_csv, newline='') as csvfile:
     first_row = next(csvreader)
     previous = int(first_row[1])
     total += int(first_row[1])
-    total_months = total_months + 1
 
     for row in csvreader:
         total_months = total_months + 1
